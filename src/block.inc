@@ -1,0 +1,5 @@
+#pragma once
+
+.equ BLOCK_WIDTH, 32
+.equ BLOCK_HEIGHT, 8
+.equ BLOCK_GAP, BLOCK_HEIGHT
