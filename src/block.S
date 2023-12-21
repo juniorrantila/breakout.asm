@@ -16,12 +16,13 @@ block_current:
     block_current.y: .long 0
     block_current.w: .long BLOCK_WIDTH
     block_current.h: .long BLOCK_HEIGHT
-block.occupied: .space PLAYFIELD_ROWS * PLAYFIELD_COLS, 1
+block.occupied: .space PLAYFIELD_ROWS * PLAYFIELD_COLS * 8, 0xFFFFFFFFFFFFFFFF
 
 .text
 .global block_make
 block_make: /// row: edi, column: esi
     header
+
     xor eax, eax
     mov ax, BLOCK_HEIGHT + BLOCK_GAP
     imul eax, edi
