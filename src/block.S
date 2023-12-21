@@ -69,9 +69,11 @@ blocks_update:
 
     push rbx
     push r12
-    mov ebx, PLAYFIELD_ROWS
+    push PLAYFIELD_ROWS
+    pop rbx
 .blocks_update.loop_y:
-    mov r12d, PLAYFIELD_COLS
+    push PLAYFIELD_COLS
+    pop r12
     .blocks_update.loop_x:
         mov di, bx
         mov si, r12w
@@ -95,9 +97,9 @@ blocks_update:
         sub ax, [rip + ball.vy]
         mov [rip + ball.vy], ax
     .blocks_update.did_not_hit:
-        dec r12d
+        dec r12b
         jnz .blocks_update.loop_x
-    dec ebx
+    dec bx
     jnz .blocks_update.loop_y
     pop r12
     pop rbx
@@ -119,9 +121,11 @@ blocks_render:
 
     push rbx
     push r12
-    mov ebx, PLAYFIELD_ROWS
+    push PLAYFIELD_ROWS
+    pop rbx
 .blocks_render.loop_y:
-    mov r12d, PLAYFIELD_COLS
+    push PLAYFIELD_COLS
+    pop r12
     .blocks_render.loop_x:
         mov di, bx
         mov si, r12w
@@ -135,9 +139,9 @@ blocks_render:
         lea rsi, [rip + block_current]
         call sdl_render_fill_rect
     .blocks_render.dont_render_block:
-        dec r12d
+        dec r12b
         jnz .blocks_render.loop_x
-    dec ebx
+    dec bx
     jnz .blocks_render.loop_y
     pop r12
     pop rbx
