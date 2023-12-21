@@ -50,6 +50,18 @@ block_is_occupied: /// row: di, column: si
     ret
 
 
+.global block_set_unoccupied
+block_set_unoccupied: /// row: di, column: si
+    header
+    xor eax, eax
+    mov ax, si
+    imul ax, di
+    lea rcx, [rip + block.occupied]
+    mov byte ptr [rcx + rax], 0
+    footer
+    ret
+
+
 .global blocks_update
 blocks_update:
     header
@@ -74,11 +86,13 @@ blocks_update:
         call sdl_has_intersection
         cmp al, 0
         jz .blocks_update.did_not_hit
-        xor eax, eax
-        mov ax, r12w
-        imul ax, bx
-        lea rcx, [rip + block.occupied]
-        mov byte ptr [rcx + rax], 0
+        mov edi, ebx
+        mov esi, r12d
+        call block_set_unoccupied
+
+        xor ax, ax
+        sub ax, [rip + ball.vy]
+        mov [rip + ball.vy], ax
     .blocks_update.did_not_hit:
         dec r12d
         jnz .blocks_update.loop_x
