@@ -23,18 +23,20 @@ block.occupied: .space PLAYFIELD_ROWS * PLAYFIELD_COLS * 8, 0xFFFFFFFFFFFFFFFF
 block_make: /// row: edi, column: esi
     header
 
-    xor eax, eax
-    mov ax, BLOCK_HEIGHT + BLOCK_GAP
+    push BLOCK_HEIGHT + BLOCK_GAP
+    pop rax
     imul eax, edi
     mov [rip + block_current.y], ax
 
     xor eax, eax
     mov eax, esi
     add ax, BLOCK_GAP
-    lea edx, [0 + BLOCK_WIDTH + BLOCK_GAP]
+    push BLOCK_WIDTH + BLOCK_GAP
+    pop rdx
     imul esi, edx
-    sub esi, BLOCK_WIDTH - BLOCK_GAP / 2
+    sub esi, BLOCK_WIDTH - (BLOCK_GAP + BLOCK_GAP / 2)
     mov [rip + block_current.x], esi
+
     footer
     ret
 
