@@ -98,6 +98,8 @@ blocks_update:
         xor ax, ax
         sub ax, [rip + ball.vy]
         mov [rip + ball.vy], ax
+
+        call sound_did_break_block
     .blocks_update.did_not_hit:
         dec r12b
         jnz .blocks_update.loop_x

@@ -11,6 +11,11 @@ project('breakout', 'c',
     'buildtype=release'
   ])
 
+if target_machine.system() == 'darwin'
+  appkit_dep = dependency('appkit')
+else
+  appkit_dep = []
+endif
 sdl_dep = dependency('sdl2')
 
 subdir('src')

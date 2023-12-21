@@ -40,6 +40,7 @@ ball_update:
     xor ax, ax
     sub ax, [rip + ball.vx]
     mov [rip + ball.vx], ax
+    call sound_ball_did_hit_wall
 .ball_update.dont_flip_x:
 
     mov ax, [rip + ball.y]
@@ -56,6 +57,7 @@ ball_update:
     xor ax, ax
     sub ax, [rip + ball.vy]
     mov [rip + ball.vy], ax
+    call sound_ball_did_hit_wall
 .ball_update.dont_flip_y:
 
     lea rdi, [rip + paddle]
@@ -67,6 +69,7 @@ ball_update:
     xor ax, ax
     sub ax, [rip + ball.vy]
     mov [rip + ball.vy], ax
+    call sound_ball_did_hit_paddle
     
 .ball_update.end:
     footer
